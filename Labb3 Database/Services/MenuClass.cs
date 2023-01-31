@@ -105,8 +105,12 @@ namespace Labb3_Database.Services
                 context.TblEmployees.Add(newEmployee);
                 context.SaveChanges();
                 var newEmployeeRole = context.TblRoles.Where(p => p.Id == roleID);
-                Console.WriteLine($"Employee was succefully added \nID:{newEmployee.Id} \nName {newEmployee.Name}" +
-                    $"\nRole: {newEmployeeRole.Where(p => p.Role == p.Role).Select(p => p.Role)} ");
+                Console.Write($"Employee was succefully added \nID:{newEmployee.Id} \nName: {newEmployee.Name}" +
+                    $"\nRole: ");
+                foreach (var role in roles.Where(p=> p.Id == roleID))
+                {
+                    Console.Write(role.Role + "\n");
+                }
 
             }
 

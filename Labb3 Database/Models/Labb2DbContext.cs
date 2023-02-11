@@ -60,6 +60,8 @@ namespace Labb3_Database.Models
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
+                entity.Property(e => e.DateOfEmployment).HasColumnType("date");
+
                 entity.Property(e => e.Name).HasMaxLength(50);
 
                 entity.Property(e => e.RoleId).HasColumnName("RoleID");

@@ -14,6 +14,7 @@ namespace Labb3_Database.Models
         public int RoleId { get; set; }
         public string Name { get; set; } = null!;
         public string Ssn { get; set; } = null!;
+        public DateTime? DateOfEmployment { get; set; }
 
         public virtual TblRole Role { get; set; } = null!;
         public virtual ICollection<TblCourse> TblCourses { get; set; }

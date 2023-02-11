@@ -10,7 +10,8 @@ namespace Labb3_Database.Services
             while (isRunning)
             {
                 Console.Clear();
-                Console.WriteLine("1, All Students \n2, Class Roster\n3, Add Employee\n4, Exit");
+                Console.WriteLine("1. All Students Sorted \n2. Class Roster\n3. Add Employee\n4. All students Info" +
+                    "\n5. All Courses \n6. Employees per department\n7. Exit");
                 int.TryParse(Console.ReadLine(), out int choice);
                 switch (choice)
                 {
@@ -24,12 +25,44 @@ namespace Labb3_Database.Services
                         MenuChoiceThree();
                         break;
                     case 4:
+                        StudentInfo.AllStudentsInfo();
+                        break;
+                    case 5:
+                        ListCourses();
+                        ReturnToMenu();
+                        break;
+                    case 6:
+                        TeacherPerCourse();
+                        break;
+                    case 7:
                         isRunning = false;
                         break;
                     default:
                         break;
                 }
 
+            }
+        }
+        public static void TeacherPerCourse()
+        {
+            Labb2DbContext context = new Labb2DbContext();
+            var roles = context.TblRoles;
+            var departments = context.TblEmployees.GroupBy(x => x.RoleId)
+                .Select(p => new { Name = p.First().Role.Role, count = p.Count() });
+            foreach (var department in departments)
+            {
+                Console.WriteLine($"Number of employees in {department.Name}:{department.count}");
+            }
+
+            ReturnToMenu();
+        }
+        public static void ListCourses()
+        {
+            Labb2DbContext context = new Labb2DbContext();
+            var courses = context.TblCourses;
+            foreach (var course in courses)
+            {
+                Console.WriteLine($"Class ID: {course.Id}, Course: {course.CourseName}");
             }
         }
         public static void MenuChoiceOne()
@@ -68,13 +101,7 @@ namespace Labb3_Database.Services
         }
         public static void MenuChoiceTwo()
         {
-            Labb2DbContext context = new Labb2DbContext();
-            var courses = context.TblCourses;
-            foreach (var course in courses)
-            {
-                Console.WriteLine($"Class ID: {course.Id}, Course: {course.CourseName}");
-            }
-
+            ListCourses();
             Console.Write("Please select a Course\nID: ");
             int.TryParse(Console.ReadLine(), out int courseFinder);
             StudentInfo.ClassRoster(courseFinder);

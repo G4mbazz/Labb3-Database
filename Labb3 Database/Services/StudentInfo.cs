@@ -56,5 +56,15 @@ namespace Labb3_Database.Services
                 Console.WriteLine($"Full Name: {student.FName} {student.LName}, ID{student.Id}");
             }
         }
+        public static void AllStudentsInfo()
+        {
+            Labb2DbContext context = new Labb2DbContext();
+            var students = context.TblStudents;
+            foreach (var student in students)
+            {
+                Console.WriteLine($"Full Name: {student.FName} {student.LName}, ID: {student.Id}, SSN: {student.Ssn}");
+            }
+            MenuClass.ReturnToMenu();
+        }
     }
 }

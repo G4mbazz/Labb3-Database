@@ -5,5 +5,3 @@ using Labb3_Database.Services;
 MenuClass.Menu();
 
 
-
-Console.WriteLine("Hello, World!");
